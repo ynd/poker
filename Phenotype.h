@@ -15,11 +15,9 @@
 #include <string>
 
 class Phenotype {
-
 public:
+
     static NeuralNetwork* get_network(Individual* individual);
-    
-    static string get_graph(NeuralNetwork* network, string label="");
 
 private:
     static vector< pair<int, int> > get_markers(Individual* individual);

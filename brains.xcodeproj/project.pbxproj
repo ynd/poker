@@ -77,6 +77,7 @@
 				A00761E511528C42008DFCFE /* utilities.cpp */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				A0FE550C1151D345009E0B09 /* Individual.h */,
+				A0076E53115C10D0008DFCFE /* Individual.cpp */,
 				A0FE550D1151D3BD009E0B09 /* Population.h */,
 				A0FE55111151D583009E0B09 /* PopulationEvolver.h */,
 				A0FE55121151D583009E0B09 /* PopulationEvolver.cpp */,
@@ -86,7 +87,6 @@
 				A0FE551C1151D900009E0B09 /* Neuron.cpp */,
 				A0076490115319CE008DFCFE /* Phenotype.h */,
 				A0076491115319CE008DFCFE /* Phenotype.cpp */,
-				A0076E53115C10D0008DFCFE /* Individual.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";

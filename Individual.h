@@ -18,7 +18,11 @@ using namespace std;
 class Individual {
 public:
     
+    // Create a new individual.
     Individual(int input_units, int output_units_);
+    
+    // Save this individual.
+    string save();
     
     // Genes of the individual.
     vector<char> genes_;

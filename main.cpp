@@ -366,7 +366,7 @@ void train_xor() {
         stringstream label;
         label << "fitness = " << ev.population_[i]->fitness_;
         
-        file << Phenotype::get_graph(network, label.str());
+        file << ev.population_[i]->save();
         file.close();
         
         delete network;
@@ -408,7 +408,7 @@ int main (int argc, char * const argv[]) {
             label << "fitness = " << evolver.population_[i]->fitness_;
         
             file.open(filename.str().c_str());
-            file << Phenotype::get_graph(network, label.str());
+            file << evolver.population_[i]->save();
             file.close();
         
             delete network;
