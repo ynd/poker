@@ -13,11 +13,9 @@
 #include "Individual.h"
 
 class Population {
-
 public:
-    vector<Individual> get_individuals() { return individuals_; }
-
-private:
+    
+    // Individuals in the population.
     vector<Individual> individuals_;
 };
 

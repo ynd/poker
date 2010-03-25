@@ -11,13 +11,29 @@
 #define INDIVIDUAL_H
 
 #include <vector>
+#include "NeuralNetwork.h"
 
 using namespace std;
 
 class Individual {
-
 public:
+    
+    Individual(int input_units, int output_units_);
+    
+    // Genes of the individual.
     vector<char> genes_;
+    
+    // Neural network generated from the genes.
+    NeuralNetwork* network_;
+    
+    // Number of input units of the individual.
+    int input_units_;
+    
+    // Number of output units of the individual.
+    int output_units_;
+    
+    // Fitness of the individual.
+    double fitness_;
 };
 
 #endif

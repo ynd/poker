@@ -15,11 +15,10 @@
 
 PopulationEvolver::PopulationEvolver(int input_units, int output_units,
     double (*evaluate_fitness)(NeuralNetwork*, vector<NeuralNetwork*>),
-    int chromosome_size, int population_size, int crossovers, double mutation_rate, bool maximize_fitness)
-: input_units_(input_units),
-  output_units_(output_units),
-  evaluate_fitness_(evaluate_fitness),
-  chromosome_size_(chromosome_size),
+    int chromosome_size, int population_size,
+    int crossovers, double mutation_rate,
+    bool maximize_fitness)
+: evaluate_fitness_(evaluate_fitness),
   population_size_(population_size),
   crossovers_(crossovers), 
   mutation_rate_(mutation_rate),
@@ -28,27 +27,27 @@ PopulationEvolver::PopulationEvolver(int input_units, int output_units,
     
     // Initialize population with random individuals.
     for (int i = 0; i < population_size_; i++) {
-        Individual* individual = new Individual();
+        Individual* individual = new Individual(input_units, output_units);
         
-        for (int j = 0; j < chromosome_size_; j++) {
+        for (int j = 0; j < chromosome_size; j++) {
             individual->genes_.push_back(random(-128, 127));
         }
         
-        population_.push_back(pair<double, Individual*>(0.0, individual));
+        population_.push_back(individual);
     }
 }
 
-bool PopulationEvolver::compare_fitness_max(pair<double, Individual*> p1, pair<double, Individual*> p2) {
-    return p1.first > p2.first;
+bool PopulationEvolver::compare_fitness_max(Individual* p1, Individual* p2) {
+    return p1->fitness_ > p2->fitness_;
 }
 
-bool PopulationEvolver::compare_fitness_min(pair<double, Individual*> p1, pair<double, Individual*> p2) {
-    return p1.first < p2.first;
+bool PopulationEvolver::compare_fitness_min(Individual* p1, Individual* p2) {
+    return p1->fitness_ < p2->fitness_;
 }
 
 pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Individual* p2) {
-    Individual* c1 = new Individual();
-    Individual* c2 = new Individual();
+    Individual* c1 = new Individual(p1->input_units_, p1->output_units_);
+    Individual* c2 = new Individual(p1->input_units_, p1->output_units_);
     
     int point1 = rand() % p1->genes_.size();
     int point2 = point1 + rand() % (p1->genes_.size() - point1);
@@ -73,18 +72,18 @@ void PopulationEvolver::mutate(Individual* individual) {
     individual->genes_[point] += random(-128, 127);
 }
 
-void PopulationEvolver::compute_fitness() {
+void PopulationEvolver::get_population_fitness() {
     vector<NeuralNetwork*> networks;
     for (int i = 0; i < population_.size(); i++) {
-        NeuralNetwork* network = Phenotype::get_network(population_[i].second, input_units_, output_units_);
-            
-        networks.push_back(network);
+        if (population_[i]->network_ == NULL) {
+            population_[i]->network_ = Phenotype::get_network(population_[i]);
+        }
+        
+        networks.push_back(population_[i]->network_);
     }
+    
     for (int i = 0; i < population_.size(); i++) {
-        population_[i].first = evaluate_fitness_(networks[i], networks);
-    }
-    for (int i = 0; i < networks.size(); i++) {
-        delete networks[i];
+        population_[i]->fitness_ = evaluate_fitness_(networks[i], networks);
     }
     
     if (maximize_fitness_) {
@@ -99,13 +98,13 @@ void PopulationEvolver::compute_fitness() {
 void PopulationEvolver::evolve(int generations) {
     for (int g = 0; g < generations; g++) {
         // Evaluate fitness of each individual.
-        compute_fitness();
+        get_population_fitness();
         
         // Mate best individuals.
         vector<Individual*> offspring;
         for (int i = 0; i < crossovers_; i++) {
-            Individual* p1 = population_[i].second;
-            Individual* p2 = population_[rand() % crossovers_].second;
+            Individual* p1 = population_[i];
+            Individual* p2 = population_[rand() % crossovers_];
             
             pair<Individual*, Individual*> childs = crossover(p1, p2);
             
@@ -130,9 +129,13 @@ void PopulationEvolver::evolve(int generations) {
             int random_replaceable = rand() % replaceable.size();
             int choice = replaceable[random_replaceable];
             
-            delete population_[choice].second;
+            if (population_[choice]->network_ != NULL) {
+                delete population_[choice]->network_;
+            }
             
-            population_[choice] = pair<double, Individual*>(0.0, offspring[i]);
+            delete population_[choice];
+            
+            population_[choice] = offspring[i];
             
             replaceable.erase(replaceable.begin() + random_replaceable);
         }

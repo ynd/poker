@@ -23,21 +23,18 @@ public:
     
     void evolve(int generations);
     
-    static bool compare_fitness_max(pair<double, Individual*> p1, pair<double, Individual*> p2);
-    
-    static bool compare_fitness_min(pair<double, Individual*> p1, pair<double, Individual*> p2);
-    
-    void compute_fitness();
-    
     static pair<Individual*, Individual*> crossover(Individual* p1, Individual* p2);
     
-    void mutate(Individual* individual);
+    static void mutate(Individual* individual);
+    
+    static bool compare_fitness_max(Individual* p1, Individual* p2);
+    
+    static bool compare_fitness_min(Individual* p1, Individual* p2);
+    
+    void get_population_fitness();
     
     // Indicates if the genetic algorithm should try to maximize fitness.
     bool maximize_fitness_;
-    
-    // Size of the chromosomes.
-    int chromosome_size_;
     
     // Size of the population.
     int population_size_;
@@ -47,18 +44,12 @@ public:
     
     // Mutation rate.
     double mutation_rate_;
-
-    // Number of input units wanted.
-    int input_units_;
-    
-    // Number of output units wanted.
-    int output_units_;
     
     // Pointer to task-dependent function that computes fitness.
     double (*evaluate_fitness_)(NeuralNetwork*, vector<NeuralNetwork*>);
     
     // Population that will be evolved.
-    vector< pair<double, Individual*> > population_;
+    vector<Individual*> population_;
 };
 
 #endif

@@ -111,7 +111,7 @@ Neuron* Phenotype::get_closest_neuron(int label, vector<Neuron>& neurons) {
     return closest_neuron;
 }
 
-NeuralNetwork* Phenotype::get_network(Individual* individual, int input_units, int output_units) {
+NeuralNetwork* Phenotype::get_network(Individual* individual) {
     NeuralNetwork* network = new NeuralNetwork();
 
     // Locate markers
@@ -124,7 +124,7 @@ NeuralNetwork* Phenotype::get_network(Individual* individual, int input_units, i
     }
     
     // Create input neurons
-    for (int i = 0; i < input_units; i++) {
+    for (int i = 0; i < individual->input_units_; i++) {
         Neuron neuron;
             
         neuron.label_ = i;
@@ -146,7 +146,7 @@ NeuralNetwork* Phenotype::get_network(Individual* individual, int input_units, i
     }
     
     // Create output neurons
-    for (int i = 0; i < output_units; i++) {
+    for (int i = 0; i < individual->output_units_; i++) {
         Neuron neuron;
             
         neuron.label_ = i;

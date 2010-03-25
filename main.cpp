@@ -340,17 +340,17 @@ void train_xor() {
     
     ev.evolve(5000);
     
-    ev.compute_fitness();
+    ev.get_population_fitness();
     
-    cout << "Best fitness  = " << ev.population_[0].first << endl;
+    cout << "Best fitness  = " << ev.population_[0]->fitness_ << endl;
     
-    NeuralNetwork* net = Phenotype::get_network(ev.population_[0].second, 2, 1);
+    NeuralNetwork* net = Phenotype::get_network(ev.population_[0]);
     
     for (int i = 0; i < ev.population_.size(); i++) {
-        NeuralNetwork* network = Phenotype::get_network(ev.population_[i].second, 2, 1);
+        NeuralNetwork* network = Phenotype::get_network(ev.population_[i]);
         
-        for (int j = 0; j < ev.population_[i].second->genes_.size() && i == 0; j++) {
-            cout << (int) ev.population_[i].second->genes_[j] << ", ";
+        for (int j = 0; j < ev.population_[i]->genes_.size() && i == 0; j++) {
+            cout << (int) ev.population_[i]->genes_[j] << ", ";
         }
         if (i == 0) {
             cout << endl;
@@ -364,7 +364,7 @@ void train_xor() {
         file.open(filename.str().c_str());
         
         stringstream label;
-        label << "fitness = " << ev.population_[i].first;
+        label << "fitness = " << ev.population_[i]->fitness_;
         
         file << Phenotype::get_graph(network, label.str());
         file.close();
@@ -390,14 +390,14 @@ int main (int argc, char * const argv[]) {
     for (int g = 0; g < 1000; g++) {
         evolver.evolve(10);
     
-        evolver.compute_fitness();
+        evolver.get_population_fitness();
     
-        cout << "Best fitness  = " << evolver.population_[0].first;
+        cout << "Best fitness  = " << evolver.population_[0]->fitness_;
         
         double average_neurons = 0.0;
     
         for (int i = 0; i < evolver.population_.size(); i++) {
-            NeuralNetwork* network = Phenotype::get_network(evolver.population_[i].second, 9, 9);
+            NeuralNetwork* network = Phenotype::get_network(evolver.population_[i]);
             
             average_neurons += network->hidden_neurons_.size();
             
@@ -405,7 +405,7 @@ int main (int argc, char * const argv[]) {
             stringstream filename;
             filename << "networks/network" << i << ".gv";
             stringstream label;
-            label << "fitness = " << evolver.population_[i].first;
+            label << "fitness = " << evolver.population_[i]->fitness_;
         
             file.open(filename.str().c_str());
             file << Phenotype::get_graph(network, label.str());
@@ -417,7 +417,7 @@ int main (int argc, char * const argv[]) {
         cout << ", average hidden neurons = " << average_neurons / evolver.population_.size() << endl;
     }
         
-    NeuralNetwork* network = Phenotype::get_network(evolver.population_[0].second, 9, 9);
+    NeuralNetwork* network = Phenotype::get_network(evolver.population_[0]);
     
     Position game;
     while (true) {

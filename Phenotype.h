@@ -17,7 +17,7 @@
 class Phenotype {
 
 public:
-    static NeuralNetwork* get_network(Individual* individual, int input_units, int output_units);
+    static NeuralNetwork* get_network(Individual* individual);
     
     static string get_graph(NeuralNetwork* network, string label="");
 

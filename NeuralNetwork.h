@@ -11,7 +11,6 @@
 #define NEURAL_NETWORK_H
 
 #include "Neuron.h"
-#include "Individual.h"
 
 class NeuralNetwork {
 

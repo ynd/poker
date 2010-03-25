@@ -11,6 +11,7 @@
 		8DD76F6A0486A84900D96B5E /* brains.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* brains.1 */; };
 		A00761E611528C42008DFCFE /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A00761E511528C42008DFCFE /* utilities.cpp */; };
 		A0076492115319CE008DFCFE /* Phenotype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0076491115319CE008DFCFE /* Phenotype.cpp */; };
+		A0076E54115C10D0008DFCFE /* Individual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0076E53115C10D0008DFCFE /* Individual.cpp */; };
 		A0FE55131151D583009E0B09 /* PopulationEvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0FE55121151D583009E0B09 /* PopulationEvolver.cpp */; };
 		A0FE551A1151D888009E0B09 /* NeuralNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0FE55191151D888009E0B09 /* NeuralNetwork.cpp */; };
 		A0FE551D1151D900009E0B09 /* Neuron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0FE551C1151D900009E0B09 /* Neuron.cpp */; };
@@ -36,6 +37,7 @@
 		A00761E511528C42008DFCFE /* utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utilities.cpp; sourceTree = "<group>"; };
 		A0076490115319CE008DFCFE /* Phenotype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Phenotype.h; sourceTree = "<group>"; };
 		A0076491115319CE008DFCFE /* Phenotype.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Phenotype.cpp; sourceTree = "<group>"; };
+		A0076E53115C10D0008DFCFE /* Individual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Individual.cpp; sourceTree = "<group>"; };
 		A0FE550C1151D345009E0B09 /* Individual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Individual.h; sourceTree = "<group>"; };
 		A0FE550D1151D3BD009E0B09 /* Population.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Population.h; sourceTree = "<group>"; };
 		A0FE55111151D583009E0B09 /* PopulationEvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopulationEvolver.h; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				A0FE551C1151D900009E0B09 /* Neuron.cpp */,
 				A0076490115319CE008DFCFE /* Phenotype.h */,
 				A0076491115319CE008DFCFE /* Phenotype.cpp */,
+				A0076E53115C10D0008DFCFE /* Individual.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				A0FE551D1151D900009E0B09 /* Neuron.cpp in Sources */,
 				A00761E611528C42008DFCFE /* utilities.cpp in Sources */,
 				A0076492115319CE008DFCFE /* Phenotype.cpp in Sources */,
+				A0076E54115C10D0008DFCFE /* Individual.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
