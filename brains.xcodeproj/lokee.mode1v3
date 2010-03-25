@@ -265,10 +265,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>A0076ECA115C194F008DFCFE</string>
+						<string>A0076F34115C201C008DFCFE</string>
 						<key>history</key>
 						<array>
-							<string>A0076EBB115C1868008DFCFE</string>
+							<string>A0076ED2115C197B008DFCFE</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -285,126 +285,6 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>268 85 818 693 0 0 1280 778 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>A0076ECB115C194F008DFCFE</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>Individual.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>A0076ECC115C194F008DFCFE</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>Individual.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>A0076ECD115C194F008DFCFE</string>
-						<key>history</key>
-						<array>
-							<string>A0076EAC115C168A008DFCFE</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {871, 499}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>356 176 871 540 0 0 1280 778 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>A0076E76115C11CA008DFCFE</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>PopulationEvolver.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>A0076E77115C11CA008DFCFE</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>PopulationEvolver.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>A0076ECE115C194F008DFCFE</string>
-						<key>history</key>
-						<array>
-							<string>A0076E8A115C11F8008DFCFE</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {871, 499}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>341 176 871 540 0 0 1280 778 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>A0076E7A115C11CA008DFCFE</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>Population.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>A0076E7B115C11CA008DFCFE</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>Population.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>A0076ECF115C194F008DFCFE</string>
-						<key>history</key>
-						<array>
-							<string>A0076E70115C1184008DFCFE</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {871, 499}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>89 238 871 540 0 0 1280 778 </string>
 			</dict>
 		</dict>
 	</array>
@@ -485,11 +365,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
+									<integer>9</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 121}, {186, 338}}</string>
+							<string>{{0, 13}, {186, 338}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -710,7 +592,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>291248463.93883097</real>
+	<real>291250204.14196903</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -725,8 +607,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A0076ED0115C194F008DFCFE</string>
-		<string>A0076E73115C11CA008DFCFE</string>
 		<string>A00765F01153C82D008DFCFE</string>
 		<string>A007643C1152EAF7008DFCFE</string>
 		<string>A00763DB1152E4F0008DFCFE</string>
@@ -735,9 +615,6 @@
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>A0FE550F1151D434009E0B09</string>
-		<string>A0076E7A115C11CA008DFCFE</string>
-		<string>A0076E76115C11CA008DFCFE</string>
-		<string>A0076ECB115C194F008DFCFE</string>
 		<string>/Users/lokee/Documents/School/INF4215/brains/brains.xcodeproj</string>
 		<string>A0076B1811592D99008DFCFE</string>
 	</array>
@@ -758,14 +635,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Individual.cpp</string>
+								<string>main.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -782,6 +657,8 @@
 							<string>323pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

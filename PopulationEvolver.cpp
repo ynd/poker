@@ -30,7 +30,7 @@ PopulationEvolver::PopulationEvolver(int input_units, int output_units,
         Individual* individual = new Individual(input_units, output_units);
         
         for (int j = 0; j < chromosome_size; j++) {
-            individual->genes_.push_back(random(-128, 127));
+            individual->genes_.push_back(rand() % 256);
         }
         
         population_.push_back(individual);
@@ -69,7 +69,7 @@ pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Indi
 void PopulationEvolver::mutate(Individual* individual) {
     int point  = rand() % individual->genes_.size();
     
-    individual->genes_[point] += random(-128, 127);
+    individual->genes_[point] += rand() % 256;
 }
 
 void PopulationEvolver::get_population_fitness() {

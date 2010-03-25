@@ -25,7 +25,7 @@ public:
     string save();
     
     // Genes of the individual.
-    vector<char> genes_;
+    vector<unsigned char> genes_;
     
     // Neural network generated from the genes.
     NeuralNetwork* network_;

@@ -31,14 +31,14 @@ string Individual::save() {
     graph << "input_units: " << input_units_ << endl
           << "output_units: " << output_units_ << endl;
     for (int i = 0; i < genes_.size(); i++) {
-        graph << (unsigned char) genes_[i] << " ";
+        graph << (unsigned int) genes_[i] << " ";
     }
     graph << endl;
     graph << "*/" << endl;
     
     // Output neural network structure.
     graph << "digraph neural_network {" << endl
-          << "label=\"" << label << "\";" << endl;
+          << "label=\"" << label.str() << "\";" << endl;
     graph << "rankdir=LR;" << endl;
     
     graph << "subgraph cluster_0 {" << endl
