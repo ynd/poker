@@ -351,7 +351,7 @@ void train_xor() {
         file << ev.population_[i]->save();
         file.close();
     }
-    
+    return;
     NeuralNetwork* net = Phenotype::get_network(ev.population_[0]);
     while (true) {
         vector<double> input(2);

@@ -120,6 +120,16 @@ void PopulationEvolver::evolve(int generations) {
             offspring.push_back(childs.second);
         }
         
+        // Mutate one random individual.
+        if (random(0.0, 1.0) < mutation_rate_) {
+            Individual* i1 = population_[rand() % population_.size()];
+            
+            mutate(i1);
+            
+            delete i1->network_;
+            i1->network_ = NULL;
+        }
+        
         // Replace unfit individuals.
         vector<int> replaceable;
         for (int i = crossovers_; i < population_.size(); i++) {

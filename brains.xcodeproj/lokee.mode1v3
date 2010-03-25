@@ -251,6 +251,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>A0076F53115C24D0008DFCFE</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>PopulationEvolver.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>A0076F54115C24D0008DFCFE</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>PopulationEvolver.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>A0076F69115C2703008DFCFE</string>
+						<key>history</key>
+						<array>
+							<string>A0076F4E115C2474008DFCFE</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {846, 573}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>285 164 846 614 0 0 1280 778 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>A0076B1811592D99008DFCFE</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>main.cpp</string>
@@ -265,7 +305,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>A0076F34115C201C008DFCFE</string>
+						<string>A0076F6A115C2703008DFCFE</string>
 						<key>history</key>
 						<array>
 							<string>A0076ED2115C197B008DFCFE</string>
@@ -365,7 +405,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
+									<integer>8</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -592,7 +632,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>291250204.14196903</real>
+	<real>291251971.52465099</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -617,6 +657,7 @@
 		<string>A0FE550F1151D434009E0B09</string>
 		<string>/Users/lokee/Documents/School/INF4215/brains/brains.xcodeproj</string>
 		<string>A0076B1811592D99008DFCFE</string>
+		<string>A0076F53115C24D0008DFCFE</string>
 	</array>
 	<key>WindowString</key>
 	<string>48 71 690 397 0 0 1280 778 </string>
