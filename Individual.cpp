@@ -67,7 +67,7 @@ string Individual::save() {
         graph << "H_" << network_->hidden_neurons_[i].label_
               << " [ label = \""
               << "H_" << network_->hidden_neurons_[i].label_
-              << "\\n(" << (int) network_->hidden_neurons_[i].bias_ << ")\"];";
+              << "\\n(" << (int) network_->hidden_neurons_[i].bias_ << ")\"];" << endl;
     }
     for (int i = 0; i < network_->hidden_neurons_.size(); i++) {
         Neuron* neuron = &network_->hidden_neurons_[i];
