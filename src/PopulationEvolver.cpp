@@ -136,8 +136,28 @@ void PopulationEvolver::evolve(int generations) {
             replaceable.push_back(i);
         }
         for (int i = 0; i < offspring.size() && !replaceable.empty(); i++) {
-            int random_replaceable = rand() % replaceable.size();
-            int choice = replaceable[random_replaceable];
+            int max_similarity = INT_MAX;
+            int max_similar = 0;
+            
+            // Replace the most similar individual in a random window. 
+            for (int j = 0; j < 1 && j < replaceable.size(); j++) {
+                int random_replaceable = rand() % replaceable.size();
+                int choice = replaceable[random_replaceable];
+                
+                Individual* candidate = population_[choice];
+                
+                int distance = 0;
+                for (int k = 0; k < candidate->genes_.size(); k++) {
+                    distance += abs(offspring[i]->genes_[k] - candidate->genes_[k]);
+                }
+                
+                if (distance < max_similarity) {
+                    max_similarity = distance;
+                    max_similar = random_replaceable;
+                }
+            }
+            
+            int choice = replaceable[max_similar];
             
             if (population_[choice]->network_ != NULL) {
                 delete population_[choice]->network_;
@@ -147,7 +167,7 @@ void PopulationEvolver::evolve(int generations) {
             
             population_[choice] = offspring[i];
             
-            replaceable.erase(replaceable.begin() + random_replaceable);
+            replaceable.erase(replaceable.begin() + max_similar);
         }
     }
 }
