@@ -16,7 +16,7 @@ int last_generation = -2;
 
 double evaluate_fitness (NeuralNetwork* network, int generation) {
     double predictions = 0.0;
-    for (int r = 0; r < dataset.size()*0.80; r++) {
+    for (int r = 0; r < dataset.size(); r++) {
         vector<double> output = network->get_output(dataset[r].second);
         
         int letter = dataset[r].first - 65;

@@ -12,6 +12,7 @@
 #include "Phenotype.h"
 #include <algorithm>
 #include <iostream>
+#include <limits.h>
 
 PopulationEvolver::PopulationEvolver(int input_units, int output_units,
     double (*evaluate_fitness)(NeuralNetwork*, int),
