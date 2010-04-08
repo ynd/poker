@@ -1,6 +1,6 @@
 /*
  *  NeuralNetwork.h
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -16,8 +16,6 @@ class NeuralNetwork {
 
 public:
     vector<double> get_output(vector<double> input);
-    
-    void clear_memory();
 
     // Neurons that belong to the input layer.
     vector<Neuron> input_neurons_;

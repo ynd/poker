@@ -1,6 +1,6 @@
 /*
  *  Individual.h
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -11,6 +11,7 @@
 #define INDIVIDUAL_H
 
 #include <vector>
+#include <string>
 #include "NeuralNetwork.h"
 
 using namespace std;

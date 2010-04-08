@@ -1,6 +1,6 @@
 /*
  *  Neuron.h
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.

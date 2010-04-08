@@ -1,6 +1,6 @@
 /*
  *  Phenotype.h
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 18/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.

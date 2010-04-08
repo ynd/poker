@@ -1,6 +1,6 @@
 /*
  *  PopulationEvolver.h
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -17,21 +17,19 @@ class PopulationEvolver {
 
 public:
     PopulationEvolver(int input_units, int output_units,
-        double (*evaluate_fitness)(NeuralNetwork*, vector<NeuralNetwork*>),
+        double (*evaluate_fitness)(NeuralNetwork*, int),
         int chromosome_size=5000, int population_size=50, int crossovers=12,
         double mutation_rate=0.004, bool maximize_fitness=true);
     
     void evolve(int generations);
     
-    static pair<Individual*, Individual*> crossover(Individual* p1, Individual* p2);
-    
-    static void mutate(Individual* individual);
+    pair<Individual*, Individual*> crossover(Individual* p1, Individual* p2);
     
     static bool compare_fitness_max(Individual* p1, Individual* p2);
     
     static bool compare_fitness_min(Individual* p1, Individual* p2);
     
-    void get_population_fitness();
+    void get_population_fitness(int generation);
     
     // Indicates if the genetic algorithm should try to maximize fitness.
     bool maximize_fitness_;
@@ -46,7 +44,7 @@ public:
     double mutation_rate_;
     
     // Pointer to task-dependent function that computes fitness.
-    double (*evaluate_fitness_)(NeuralNetwork*, vector<NeuralNetwork*>);
+    double (*evaluate_fitness_)(NeuralNetwork*, int);
     
     // Population that will be evolved.
     vector<Individual*> population_;

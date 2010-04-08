@@ -1,6 +1,6 @@
 /*
  *  Phenotype.cpp
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 18/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -10,6 +10,8 @@
 #include <iostream>
 #include "Phenotype.h"
 #include <sstream>
+#include <stdlib.h>
+#include <limits.h>
 
 vector< pair<int, int> > Phenotype::get_markers(Individual* individual) {
     vector< pair<int, int> > markers;
@@ -17,6 +19,10 @@ vector< pair<int, int> > Phenotype::get_markers(Individual* individual) {
     bool wrapped = false;
     int current_start = -1;
     for (int i = 0;; i++) {
+        if (i < individual->output_units_) {
+            continue;
+        }
+        
         // Wrap around once.
         if (i == individual->genes_.size()) {
             if (current_start == -1 || wrapped) {
@@ -150,6 +156,8 @@ NeuralNetwork* Phenotype::get_network(Individual* individual) {
         Neuron neuron;
             
         neuron.label_ = i;
+        
+        neuron.bias_ = individual->genes_[i];
             
         network->output_neurons_.push_back(neuron);
     }

@@ -1,6 +1,6 @@
 /*
  *  PopulationEvolver.cpp
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -14,7 +14,7 @@
 #include <iostream>
 
 PopulationEvolver::PopulationEvolver(int input_units, int output_units,
-    double (*evaluate_fitness)(NeuralNetwork*, vector<NeuralNetwork*>),
+    double (*evaluate_fitness)(NeuralNetwork*, int),
     int chromosome_size, int population_size,
     int crossovers, double mutation_rate,
     bool maximize_fitness)
@@ -53,7 +53,7 @@ pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Indi
     int point2 = point1 + rand() % (p1->genes_.size() - point1);
     
     for (int i = 0; i < p1->genes_.size(); i++) {
-        if (i > point1 && i < point2) {
+        if (i >= point1 && i <= point2) {
             c1->genes_.push_back(p2->genes_[i]);
             c2->genes_.push_back(p1->genes_[i]);
         }
@@ -61,29 +61,26 @@ pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Indi
             c1->genes_.push_back(p1->genes_[i]);
             c2->genes_.push_back(p2->genes_[i]);
         }
+        
+        if (random(0.0, 1.0) < mutation_rate_) {
+             c1->genes_[i] += rand() % 256;
+        }
+        
+        if (random(0.0, 1.0) < mutation_rate_) {
+             c2->genes_[i] += rand() % 256;
+        }
     }
     
     return pair<Individual*, Individual*>(c1, c2);
 }
 
-void PopulationEvolver::mutate(Individual* individual) {
-    int point  = rand() % individual->genes_.size();
-    
-    individual->genes_[point] += rand() % 256;
-}
-
-void PopulationEvolver::get_population_fitness() {
-    vector<NeuralNetwork*> networks;
+void PopulationEvolver::get_population_fitness(int generation) {
+    #pragma omp parallel for
     for (int i = 0; i < population_.size(); i++) {
         if (population_[i]->network_ == NULL) {
             population_[i]->network_ = Phenotype::get_network(population_[i]);
         }
-        
-        networks.push_back(population_[i]->network_);
-    }
-    
-    for (int i = 0; i < population_.size(); i++) {
-        population_[i]->fitness_ = evaluate_fitness_(networks[i], networks);
+        population_[i]->fitness_ = evaluate_fitness_(population_[i]->network_, generation);
     }
     
     if (maximize_fitness_) {
@@ -98,36 +95,39 @@ void PopulationEvolver::get_population_fitness() {
 void PopulationEvolver::evolve(int generations) {
     for (int g = 0; g < generations; g++) {
         // Evaluate fitness of each individual.
-        get_population_fitness();
+        get_population_fitness(g);
         
-        // Mate best individuals.
+        // Select individuals using tournament selectoin.
+        vector<Individual*> selected(crossovers_);
+        vector<Individual*> candidates = population_;
+        for (int i = 0; i < selected.size(); i++) {
+            vector<Individual*> contestants(population_.size() / crossovers_);
+            for (int j = 0; j < contestants.size() && !candidates.empty(); j++) {
+                int index = rand() % candidates.size();
+                contestants[j] = candidates[index];
+                candidates.erase(candidates.begin() + index);
+            }
+            
+            if (maximize_fitness_) {
+                sort(contestants.begin(), contestants.end(), compare_fitness_max);
+            }
+            else {
+                sort(contestants.begin(), contestants.end(), compare_fitness_min);
+            }
+            
+            selected[i] = contestants[0];
+        }
+        
+        // Mate selected.
         vector<Individual*> offspring;
-        for (int i = 0; i < crossovers_; i++) {
-            Individual* p1 = population_[i];
-            Individual* p2 = population_[rand() % crossovers_];
+        for (int i = 0; i < selected.size(); i++) {
+            Individual* p1 = selected[i];
+            Individual* p2 = selected[rand() % selected.size()];
             
             pair<Individual*, Individual*> childs = crossover(p1, p2);
             
-            // Mutation.
-            if (random(0.0, 1.0) < mutation_rate_) {
-                mutate(childs.first);
-            }
-            if (random(0.0, 1.0) < mutation_rate_) {
-                mutate(childs.second);
-            }
-            
             offspring.push_back(childs.first);
             offspring.push_back(childs.second);
-        }
-        
-        // Mutate one random individual.
-        if (random(0.0, 1.0) < mutation_rate_) {
-            Individual* i1 = population_[rand() % population_.size()];
-            
-            mutate(i1);
-            
-            delete i1->network_;
-            i1->network_ = NULL;
         }
         
         // Replace unfit individuals.

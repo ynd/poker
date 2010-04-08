@@ -1,6 +1,6 @@
 /*
  *  NeuralNetwork.cpp
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 lambdatree. All rights reserved.
@@ -22,6 +22,10 @@ vector<double> NeuralNetwork::get_output(vector<double> input) {
             open_queue.push(input_neurons_[i].outputs_[j]);
             closed_set.insert(input_neurons_[i].outputs_[j]);
         }
+    }
+    
+    for (int i = 0; i < hidden_neurons_.size(); i++) {
+        hidden_neurons_[i].output_ = hidden_neurons_[i].bias_;
     }
     
     for (int i = 0; i < output_neurons_.size(); i++) {
@@ -53,18 +57,4 @@ vector<double> NeuralNetwork::get_output(vector<double> input) {
     }
     
     return output;
-}
-
-void NeuralNetwork::clear_memory() {
-    for (int i = 0; i < input_neurons_.size(); i++) {
-        input_neurons_[i].output_ = 0.0;
-    }
-    
-    for (int i = 0; i < hidden_neurons_.size(); i++) {
-        hidden_neurons_[i].output_ = hidden_neurons_[i].bias_;
-    }
-    
-    for (int i = 0; i < output_neurons_.size(); i++) {
-        output_neurons_[i].output_ = 0.0;
-    }
 }

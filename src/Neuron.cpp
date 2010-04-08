@@ -1,6 +1,6 @@
 /*
  *  Neuron.cpp
- *  brains
+ *  letters
  *
  *  Created by Yann Dauphin on 17/03/10.
  *  Copyright 2010 __MyCompanyName__. All rights reserved.
