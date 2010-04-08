@@ -52,7 +52,7 @@ int main (int argc, char * const argv[]) {
         }
     }
     
-    PopulationEvolver ev(4, 3, evaluate_fitness, 1000, 50, 12, 0.01, true);
+    PopulationEvolver ev(4, 3, evaluate_fitness, 500, 50, 12, 0.01, true);
     
     for (int i = 0; i < ev.population_.size(); i++) {
         ifstream save;

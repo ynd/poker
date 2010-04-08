@@ -25,6 +25,8 @@ public:
     
     pair<Individual*, Individual*> crossover(Individual* p1, Individual* p2);
     
+    void slide(Individual* i1);
+    
     static bool compare_fitness_max(Individual* p1, Individual* p2);
     
     static bool compare_fitness_min(Individual* p1, Individual* p2);

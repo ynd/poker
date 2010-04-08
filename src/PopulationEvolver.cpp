@@ -63,15 +63,37 @@ pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Indi
         }
         
         if (random(0.0, 1.0) < mutation_rate_) {
-             c1->genes_[i] += rand() % 256;
+            c1->genes_[i] += rand() % 256;
         }
         
         if (random(0.0, 1.0) < mutation_rate_) {
-             c2->genes_[i] += rand() % 256;
+            c2->genes_[i] += rand() % 256;
         }
     }
     
+    if (random(0.0, 1.0) < mutation_rate_/10) {
+        slide(c1);
+    }
+    
+    if (random(0.0, 1.0) < mutation_rate_/10) {
+        slide(c1);
+    }
+    
     return pair<Individual*, Individual*>(c1, c2);
+}
+
+void PopulationEvolver::slide(Individual* i1) {
+    int start = rand() % i1->genes_.size();
+    int end = start + rand() % (i1->genes_.size() - start);
+    int new_start = min(start + (i1->genes_.size()-end), start + rand() % (i1->genes_.size() - start));
+    
+    vector<unsigned char> old_genes = i1->genes_;
+    for (int i = start; i < new_start; i++) {
+        i1->genes_[i] = old_genes[i - start + end];
+    }
+    for (int i = 0; i < (end - start); i++) {
+        i1->genes_[i] = old_genes[new_start + i];
+    }
 }
 
 void PopulationEvolver::get_population_fitness(int generation) {
@@ -140,7 +162,7 @@ void PopulationEvolver::evolve(int generations) {
             int max_similar = 0;
             
             // Replace the most similar individual in a random window. 
-            for (int j = 0; j < 1 && j < replaceable.size(); j++) {
+            for (int j = 0; j < 3 && j < replaceable.size(); j++) {
                 int random_replaceable = rand() % replaceable.size();
                 int choice = replaceable[random_replaceable];
                 

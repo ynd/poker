@@ -19,9 +19,18 @@ double evaluate_fitness (NeuralNetwork* network, int generation) {
     for (int r = 0; r < dataset.size()*0.80; r++) {
         vector<double> output = network->get_output(dataset[r].second);
         
-        int prediction = (output[0] <= 0.5)? 'A':'B';
+        int letter = dataset[r].first - 65;
         
-        if (prediction == dataset[r].first) {
+        int max = 0;
+        double max_value = -1;
+        for (int j = 0; j < output.size(); j++) {
+            if (output[j] > max_value) {
+                max = j;
+                max_value = output[j];
+            }
+        }
+        
+        if (max == letter) {
             predictions++;
         }
     }
@@ -45,7 +54,7 @@ int main (int argc, char * const argv[]) {
         file >> dataset[i].first;
     }
     
-    PopulationEvolver ev(9, 1, evaluate_fitness, 2000, 50, 12, 0.01, true);
+    PopulationEvolver ev(9, 2, evaluate_fitness, 1000, 50, 12, 0.01, true);
     
     for (int i = 0; i < ev.population_.size(); i++) {
         ifstream save;
@@ -104,9 +113,16 @@ int main (int argc, char * const argv[]) {
             NeuralNetwork* network = ev.population_[0]->network_;
             vector<double> output = network->get_output(dataset[i].second);
 
-            int prediction = (output[0] <= 0.5)? 'A':'B';
+            int max = 0;
+            double max_value = -1;
+            for (int j = 0; j < output.size(); j++) {
+                if (output[j] > max_value) {
+                    max = j;
+                    max_value = output[j];
+                }
+            }
 
-            if (prediction == dataset[i].first) {
+            if (max == (dataset[i].first - 65)) {
                 predicted++;
             }
         }
