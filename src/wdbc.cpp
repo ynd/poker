@@ -10,32 +10,67 @@
 #include <cmath>
 
 vector< pair<char, vector<double> > > dataset;
+vector<int> success_distribution;
 
 vector<int> choice;
 int last_generation = -2;
 
 double evaluate_fitness (NeuralNetwork* network, int generation) {
     double predictions = 0.0;
-    for (int r = 0; r < dataset.size(); r++) {
+    for (int r = 138; r < dataset.size(); r++) {
         vector<double> output = network->get_output(dataset[r].second);
         
         int letter = dataset[r].first - 65;
         
-        int max = 0;
+        int maximum = 0;
         double max_value = -1;
         for (int j = 0; j < output.size(); j++) {
             if (output[j] > max_value) {
-                max = j;
+                maximum = j;
                 max_value = output[j];
             }
         }
         
-        if (max == letter) {
-            predictions++;
+        if (maximum == letter) {
+            predictions += 5.0 / exp(0.3*success_distribution[r]);
         }
     }
       
     return predictions;
+}
+
+void calculate_success_distribution (PopulationEvolver* evolver) {
+    success_distribution.resize(dataset.size());
+    
+    for (int i = 0; i < success_distribution.size(); i++) {
+        int successes = 0;
+        for (int j = 0; j < evolver->population_.size(); j++) {
+            if (evolver->population_[j]->network_ == NULL) {
+                evolver->population_[j]->network_ = Phenotype::get_network(evolver->population_[j]);
+            }
+            vector<double> output = evolver->population_[j]->network_->get_output(dataset[i].second);
+
+            int letter = dataset[i].first - 65;
+
+            int max = 0;
+            double max_value = -1;
+            for (int k = 0; k < output.size(); k++) {
+                if (output[j] > max_value) {
+                    max = k;
+                    max_value = output[k];
+                }
+            }
+
+            if (max == letter) {
+                successes++;
+            }
+        }
+        if (successes == 0 ) {
+            cout << "zero success = " << i << endl;
+        }
+        
+        success_distribution[i] = successes;
+    }
 }
 
 int main (int argc, char * const argv[]) {
@@ -54,7 +89,7 @@ int main (int argc, char * const argv[]) {
         file >> dataset[i].first;
     }
     
-    PopulationEvolver ev(9, 2, evaluate_fitness, 1000, 50, 12, 0.01, true);
+    PopulationEvolver ev(9, 2, evaluate_fitness, 550, 50, 12, 0.01, true);
     
     for (int i = 0; i < ev.population_.size(); i++) {
         ifstream save;
@@ -83,10 +118,14 @@ int main (int argc, char * const argv[]) {
         }
     }
     
+    calculate_success_distribution(&ev);
+    
     for (int g = 0; g < 10000; g++) {
         ev.evolve(100);
         
         ev.get_population_fitness(-1);
+        
+        calculate_success_distribution(&ev);
     
         cerr << g << " - Best fitness = " << ev.population_[0]->fitness_;
         
@@ -108,26 +147,32 @@ int main (int argc, char * const argv[]) {
         average_neurons = average_neurons / ev.population_.size();
         average_fitness = average_fitness / ev.population_.size();
         
-        int predicted = 0;
-        for (int i = 0; i < dataset.size(); i++) {
-            NeuralNetwork* network = ev.population_[0]->network_;
-            vector<double> output = network->get_output(dataset[i].second);
+        cout << ", Average neurons = " << average_neurons << ", Average fitness = " << average_fitness << endl;
+        
+        for (int z = 0; z < ev.population_.size(); z++) {
+            int predicted = 0;
+            for (int i = 0; i < dataset.size(); i++) {
+                NeuralNetwork* network = ev.population_[z]->network_;
+                vector<double> output = network->get_output(dataset[i].second);
 
-            int max = 0;
-            double max_value = -1;
-            for (int j = 0; j < output.size(); j++) {
-                if (output[j] > max_value) {
-                    max = j;
-                    max_value = output[j];
+                int max = 0;
+                double max_value = -1;
+                for (int j = 0; j < output.size(); j++) {
+                    if (output[j] > max_value) {
+                        max = j;
+                        max_value = output[j];
+                    }
+                }
+
+                if (max == (dataset[i].first - 65)) {
+                    predicted++;
                 }
             }
 
-            if (max == (dataset[i].first - 65)) {
-                predicted++;
-            }
+            cout << "fitess = " << ev.population_[z]->fitness_ << ", Correctly predicted = " << (double)predicted/dataset.size() << endl;
         }
-    
-        cout << ", Average neurons = " << average_neurons << ", Average fitness = " << average_fitness << ", Correctly predicted = " << predicted << endl;
+        
+        cout << "--------------------" << endl;
     }
     
     return 0;

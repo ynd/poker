@@ -1,6 +1,8 @@
 #include "TheGame.h"
 #include "naive_ia.h"
 #include "PopulationEvolver.h"
+#include "PlayerHuman.h"
+#include "Phenotype.h"
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -30,26 +32,15 @@ public:
     }
 };
 
-double evaluate_fitness (NeuralNetwork* network, int generation) {
-    int count = 0;
+int main (int argc, char * const argv[]) {
+    int benched = 0;
+    if (argc > 1) {
+        benched = atoi(argv[1]);
+    }
     
-    Player player(network);
+	PopulationEvolver ev(1, 1, NULL, 1000, 50, 12, 0.01, true);
     
-	for (int i = 0; i < number_of_game; i++) {
-        network->clear_memory();
-		pair<int,int> result = create_game(player, elaborate_player, start_money, 50, make_pair(50,100)).get_score();
-		if (result.first > result.second) {
-			count++;
-		}
-	}
-	
-    return count;
-}
-
-int main() {
-	PopulationEvolver ev(1, 1, evaluate_fitness, 1000, 50, 12, 0.01, true);
-	
-	for (int i = 0; i < ev.population_.size(); i++) {
+    for (int i = 0; i < ev.population_.size(); i++) {
         ifstream save;
         
         stringstream filename;
@@ -76,33 +67,15 @@ int main() {
         }
     }
     
-    for (int g = 0; g < 10000; g++) {
-        ev.evolve(10);
-        
-        ev.get_population_fitness(-1);
-    
-        cerr << g << " - Best fitness = " << ev.population_[0]->fitness_;
-        
-        double average_neurons = 0.0;
-        double average_fitness = 0.0;
-        for (int i = 0; i < ev.population_.size(); i++) {
-            average_neurons += ev.population_[i]->network_->hidden_neurons_.size();
-            average_fitness += ev.population_[i]->fitness_;
-        
-            stringstream filename;
-            filename << "networks/network" << i << ".gv";
-        
-            ofstream file;
-            file.open(filename.str().c_str());
-            file << ev.population_[i]->save();
-            file.close();
-        }
-        
-        average_neurons = average_neurons / ev.population_.size();
-        average_fitness = average_fitness / ev.population_.size();
-    
-        cout << ", Average neurons = " << average_neurons << ", Average fitness = " << average_fitness << endl;
-    }
+    Player player(Phenotype::get_network(ev.population_[benched]));
+    PlayerHuman human("human", start_money);
+    pair<int,int> result = create_game(player, human, start_money, 50, make_pair(50,100)).get_score();
+	if (result.first > result.second) {
+        cout << "AI wins" << endl;
+	}
+	else {
+        cout << "AI looses" << endl;
+	}
     
     return 0;
 }

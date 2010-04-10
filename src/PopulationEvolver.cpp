@@ -73,21 +73,18 @@ pair<Individual*, Individual*> PopulationEvolver::crossover(Individual* p1, Indi
     }
     
     if (random(0.0, 1.0) < mutation_rate_/10) {
-        slide(c1);
-    }
-    
-    if (random(0.0, 1.0) < mutation_rate_/10) {
-        slide(c1);
+        int start = rand() % c1->genes_.size();
+        int end = start + rand() % (c1->genes_.size() - start);
+        int new_start = min(start + (c1->genes_.size()-end), start + rand() % (c1->genes_.size() - start));
+        
+        slide(c1, start, end, new_start);
+        slide(c2, start, end, new_start);
     }
     
     return pair<Individual*, Individual*>(c1, c2);
 }
 
-void PopulationEvolver::slide(Individual* i1) {
-    int start = rand() % i1->genes_.size();
-    int end = start + rand() % (i1->genes_.size() - start);
-    int new_start = min(start + (i1->genes_.size()-end), start + rand() % (i1->genes_.size() - start));
-    
+void PopulationEvolver::slide(Individual* i1, int start, int end, int new_start) {
     vector<unsigned char> old_genes = i1->genes_;
     for (int i = start; i < new_start; i++) {
         i1->genes_[i] = old_genes[i - start + end];

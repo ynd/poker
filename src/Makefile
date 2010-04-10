@@ -30,8 +30,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = letters$(EXEEXT) bench$(EXEEXT) xor$(EXEEXT) \
-	iris$(EXEEXT) wdbc$(EXEEXT)
+bin_PROGRAMS = poker$(EXEEXT) play$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/config.h.in
@@ -46,31 +45,22 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_bench_OBJECTS = bench.$(OBJEXT) Individual.$(OBJEXT) \
-	NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) Phenotype.$(OBJEXT) \
-	PopulationEvolver.$(OBJEXT) utilities.$(OBJEXT)
-bench_OBJECTS = $(am_bench_OBJECTS)
-bench_LDADD = $(LDADD)
-am_iris_OBJECTS = iris.$(OBJEXT) Individual.$(OBJEXT) \
-	NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) Phenotype.$(OBJEXT) \
-	PopulationEvolver.$(OBJEXT) utilities.$(OBJEXT)
-iris_OBJECTS = $(am_iris_OBJECTS)
-iris_LDADD = $(LDADD)
-am_letters_OBJECTS = main.$(OBJEXT) Individual.$(OBJEXT) \
-	NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) Phenotype.$(OBJEXT) \
-	PopulationEvolver.$(OBJEXT) utilities.$(OBJEXT)
-letters_OBJECTS = $(am_letters_OBJECTS)
-letters_LDADD = $(LDADD)
-am_wdbc_OBJECTS = wdbc.$(OBJEXT) Individual.$(OBJEXT) \
-	NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) Phenotype.$(OBJEXT) \
-	PopulationEvolver.$(OBJEXT) utilities.$(OBJEXT)
-wdbc_OBJECTS = $(am_wdbc_OBJECTS)
-wdbc_LDADD = $(LDADD)
-am_xor_OBJECTS = xor.$(OBJEXT) Individual.$(OBJEXT) \
-	NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) Phenotype.$(OBJEXT) \
-	PopulationEvolver.$(OBJEXT) utilities.$(OBJEXT)
-xor_OBJECTS = $(am_xor_OBJECTS)
-xor_LDADD = $(LDADD)
+am_play_OBJECTS = play.$(OBJEXT) GameState.$(OBJEXT) \
+	PlayerHuman.$(OBJEXT) PlayerState.$(OBJEXT) Round.$(OBJEXT) \
+	TheGame.$(OBJEXT) naive_ia.$(OBJEXT) random.$(OBJEXT) \
+	Individual.$(OBJEXT) NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) \
+	Phenotype.$(OBJEXT) PopulationEvolver.$(OBJEXT) \
+	utilities.$(OBJEXT)
+play_OBJECTS = $(am_play_OBJECTS)
+play_LDADD = $(LDADD)
+am_poker_OBJECTS = main.$(OBJEXT) GameState.$(OBJEXT) \
+	PlayerHuman.$(OBJEXT) PlayerState.$(OBJEXT) Round.$(OBJEXT) \
+	TheGame.$(OBJEXT) naive_ia.$(OBJEXT) random.$(OBJEXT) \
+	Individual.$(OBJEXT) NeuralNetwork.$(OBJEXT) Neuron.$(OBJEXT) \
+	Phenotype.$(OBJEXT) PopulationEvolver.$(OBJEXT) \
+	utilities.$(OBJEXT)
+poker_OBJECTS = $(am_poker_OBJECTS)
+poker_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -83,22 +73,20 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(bench_SOURCES) $(iris_SOURCES) $(letters_SOURCES) \
-	$(wdbc_SOURCES) $(xor_SOURCES)
-DIST_SOURCES = $(bench_SOURCES) $(iris_SOURCES) $(letters_SOURCES) \
-	$(wdbc_SOURCES) $(xor_SOURCES)
+SOURCES = $(play_SOURCES) $(poker_SOURCES)
+DIST_SOURCES = $(play_SOURCES) $(poker_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run aclocal-1.10
-AMTAR = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run tar
-AUTOCONF = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run autoconf
-AUTOHEADER = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run autoheader
-AUTOMAKE = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run automake-1.10
+ACLOCAL = ${SHELL} /Users/lokee/tmp/poker/missing --run aclocal-1.10
+AMTAR = ${SHELL} /Users/lokee/tmp/poker/missing --run tar
+AUTOCONF = ${SHELL} /Users/lokee/tmp/poker/missing --run autoconf
+AUTOHEADER = ${SHELL} /Users/lokee/tmp/poker/missing --run autoheader
+AUTOMAKE = ${SHELL} /Users/lokee/tmp/poker/missing --run automake-1.10
 AWK = gawk
 CC = gcc-4
 CCDEPMODE = depmode=gcc3
-CFLAGS = -O3 $(OPENMP_CFLAGS) -DVERSION=\"$(VERSION)\" -DPROG="\"$(PACKAGE)\""
+CFLAGS = -O3 $(OPENMP_CFLAGS) -DVERSION=\"$(VERSION)\" -DPROG="\"$(PACKAGE)\"" -I/usr/local/include/poker-eval/
 CPP = gcc-4 -E
 CPPFLAGS = 
 CXX = g++-4
@@ -122,7 +110,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /Users/lokee/Documents/School/INF4215/letters/missing --run makeinfo
+MAKEINFO = ${SHELL} /Users/lokee/tmp/poker/missing --run makeinfo
 MKDIR_P = .././install-sh -c -d
 OBJEXT = o
 OPENMP_CFLAGS = -fopenmp
@@ -137,10 +125,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.1
-abs_builddir = /Users/lokee/Documents/School/INF4215/letters/src
-abs_srcdir = /Users/lokee/Documents/School/INF4215/letters/src
-abs_top_builddir = /Users/lokee/Documents/School/INF4215/letters
-abs_top_srcdir = /Users/lokee/Documents/School/INF4215/letters
+abs_builddir = /Users/lokee/tmp/poker/src
+abs_srcdir = /Users/lokee/tmp/poker/src
+abs_top_builddir = /Users/lokee/tmp/poker
+abs_top_srcdir = /Users/lokee/tmp/poker
 ac_ct_CC = gcc-4
 ac_ct_CXX = 
 am__include = include
@@ -160,7 +148,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /Users/lokee/Documents/School/INF4215/letters/install-sh
+install_sh = $(SHELL) /Users/lokee/tmp/poker/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -179,10 +167,24 @@ sysconfdir = ${prefix}/etc
 target_alias = 
 top_builddir = ..
 top_srcdir = ..
-AM_CXXFLAGS = $(CFLAGS)
+AM_CXXFLAGS = $(CFLAGS) -lpoker-eval
 AM_LDFLAGS = $(OPENMP_CFLAGS)
-letters_SOURCES = \
+poker_SOURCES = \
 	main.cpp \
+	GameState.cpp \
+	GameState.h \
+	PlayerHuman.cpp \
+	PlayerHuman.h \
+	PlayerState.cpp \
+	PlayerState.h \
+	Round.cpp \
+	Round.h \
+	TheGame.cpp \
+	TheGame.h \
+	naive_ia.cpp \
+	naive_ia.h \
+	random.cpp \
+	random.h \
 	Individual.h \
 	Individual.cpp \
 	NeuralNetwork.h \
@@ -196,53 +198,22 @@ letters_SOURCES = \
 	utilities.h \
 	utilities.cpp
 
-bench_SOURCES = \
-	bench.cpp \
-	Individual.h \
-	Individual.cpp \
-	NeuralNetwork.h \
-	NeuralNetwork.cpp \
-	Neuron.h \
-	Neuron.cpp \
-	Phenotype.h \
-	Phenotype.cpp \
-	PopulationEvolver.h \
-	PopulationEvolver.cpp \
-	utilities.h \
-	utilities.cpp
-
-xor_SOURCES = \
-	xor.cpp \
-	Individual.h \
-	Individual.cpp \
-	NeuralNetwork.h \
-	NeuralNetwork.cpp \
-	Neuron.h \
-	Neuron.cpp \
-	Phenotype.h \
-	Phenotype.cpp \
-	PopulationEvolver.h \
-	PopulationEvolver.cpp \
-	utilities.h \
-	utilities.cpp
-
-iris_SOURCES = \
-	iris.cpp \
-	Individual.h \
-	Individual.cpp \
-	NeuralNetwork.h \
-	NeuralNetwork.cpp \
-	Neuron.h \
-	Neuron.cpp \
-	Phenotype.h \
-	Phenotype.cpp \
-	PopulationEvolver.h \
-	PopulationEvolver.cpp \
-	utilities.h \
-	utilities.cpp
-
-wdbc_SOURCES = \
-	wdbc.cpp \
+play_SOURCES = \
+	play.cpp \
+	GameState.cpp \
+	GameState.h \
+	PlayerHuman.cpp \
+	PlayerHuman.h \
+	PlayerState.cpp \
+	PlayerState.h \
+	Round.cpp \
+	Round.h \
+	TheGame.cpp \
+	TheGame.h \
+	naive_ia.cpp \
+	naive_ia.h \
+	random.cpp \
+	random.h \
 	Individual.h \
 	Individual.cpp \
 	NeuralNetwork.h \
@@ -270,9 +241,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/Makefile
+	  $(AUTOMAKE) --foreign  src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -330,21 +301,12 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-bench$(EXEEXT): $(bench_OBJECTS) $(bench_DEPENDENCIES) 
-	@rm -f bench$(EXEEXT)
-	$(CXXLINK) $(bench_OBJECTS) $(bench_LDADD) $(LIBS)
-iris$(EXEEXT): $(iris_OBJECTS) $(iris_DEPENDENCIES) 
-	@rm -f iris$(EXEEXT)
-	$(CXXLINK) $(iris_OBJECTS) $(iris_LDADD) $(LIBS)
-letters$(EXEEXT): $(letters_OBJECTS) $(letters_DEPENDENCIES) 
-	@rm -f letters$(EXEEXT)
-	$(CXXLINK) $(letters_OBJECTS) $(letters_LDADD) $(LIBS)
-wdbc$(EXEEXT): $(wdbc_OBJECTS) $(wdbc_DEPENDENCIES) 
-	@rm -f wdbc$(EXEEXT)
-	$(CXXLINK) $(wdbc_OBJECTS) $(wdbc_LDADD) $(LIBS)
-xor$(EXEEXT): $(xor_OBJECTS) $(xor_DEPENDENCIES) 
-	@rm -f xor$(EXEEXT)
-	$(CXXLINK) $(xor_OBJECTS) $(xor_LDADD) $(LIBS)
+play$(EXEEXT): $(play_OBJECTS) $(play_DEPENDENCIES) 
+	@rm -f play$(EXEEXT)
+	$(CXXLINK) $(play_OBJECTS) $(play_LDADD) $(LIBS)
+poker$(EXEEXT): $(poker_OBJECTS) $(poker_DEPENDENCIES) 
+	@rm -f poker$(EXEEXT)
+	$(CXXLINK) $(poker_OBJECTS) $(poker_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -352,17 +314,21 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/GameState.Po
 include ./$(DEPDIR)/Individual.Po
 include ./$(DEPDIR)/NeuralNetwork.Po
 include ./$(DEPDIR)/Neuron.Po
 include ./$(DEPDIR)/Phenotype.Po
+include ./$(DEPDIR)/PlayerHuman.Po
+include ./$(DEPDIR)/PlayerState.Po
 include ./$(DEPDIR)/PopulationEvolver.Po
-include ./$(DEPDIR)/bench.Po
-include ./$(DEPDIR)/iris.Po
+include ./$(DEPDIR)/Round.Po
+include ./$(DEPDIR)/TheGame.Po
 include ./$(DEPDIR)/main.Po
+include ./$(DEPDIR)/naive_ia.Po
+include ./$(DEPDIR)/play.Po
+include ./$(DEPDIR)/random.Po
 include ./$(DEPDIR)/utilities.Po
-include ./$(DEPDIR)/wdbc.Po
-include ./$(DEPDIR)/xor.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

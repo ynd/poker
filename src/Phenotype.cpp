@@ -20,7 +20,7 @@ vector< pair<int, int> > Phenotype::get_markers(Individual* individual) {
     int current_start = -1;
     for (int i = 0;; i++) {        
         // Wrap around once.
-        if (i == individual->genes_.size()) {
+        if (i == individual->genes_.size()-individual->output_units_) {
             if (current_start == -1 || wrapped) {
                 break;
             }
@@ -57,13 +57,13 @@ int Phenotype::get_slice_size(Individual* individual, pair<int, int> slice) {
         return 0;
     }
     else {
-        return slice.second + (individual->genes_.size() - slice.first) - 1;
+        return slice.second + (individual->genes_.size()-individual->output_units_ - slice.first) - 1;
     }
 }
 
 int Phenotype::get_label(Individual* individual, pair<int, int> slice) {
-    char label_high = individual->genes_[(slice.first + 1) % individual->genes_.size()];
-    char label_low = individual->genes_[(slice.first + 2) % individual->genes_.size()];
+    char label_high = individual->genes_[(slice.first + 1) % (individual->genes_.size()-individual->output_units_)];
+    char label_low = individual->genes_[(slice.first + 2) % (individual->genes_.size()-individual->output_units_)];
     
     short label = (label_high << 8) | label_low;
     
@@ -71,18 +71,18 @@ int Phenotype::get_label(Individual* individual, pair<int, int> slice) {
 }
 
 signed char Phenotype::get_bias(Individual* individual, pair<int, int> slice) {
-    int index = (slice.first + 3) % individual->genes_.size();
+    int index = (slice.first + 3) % (individual->genes_.size()-individual->output_units_);
 
     return individual->genes_[index];
 }
 
 signed char Phenotype::get_nth_key(Individual* individual, pair<int, int> slice, int n) {
-    return individual->genes_[(slice.first + 4 + 4*n) % individual->genes_.size()];
+    return individual->genes_[(slice.first + 4 + 4*n) % (individual->genes_.size()-individual->output_units_)];
 }
 
 int Phenotype::get_nth_label(Individual* individual, pair<int, int> slice, int n) {
-    char label_high = individual->genes_[(slice.first + 5 + 4*n) % individual->genes_.size()];
-    char label_low = individual->genes_[(slice.first + 6 + 4*n) % individual->genes_.size()];
+    char label_high = individual->genes_[(slice.first + 5 + 4*n) % (individual->genes_.size()-individual->output_units_)];
+    char label_low = individual->genes_[(slice.first + 6 + 4*n) % (individual->genes_.size()-individual->output_units_)];
     
     short label = (label_high << 8) | label_low;
     
@@ -94,7 +94,7 @@ int Phenotype::get_hidden_label(Individual* individual, int label) {
 }
 
 signed char Phenotype::get_nth_weight(Individual* individual, pair<int, int> slice, int n) {
-    return individual->genes_[(slice.first + 7 + 4*n) % individual->genes_.size()];
+    return individual->genes_[(slice.first + 7 + 4*n) % (individual->genes_.size()-individual->output_units_)];
 }
 
 Neuron* Phenotype::get_closest_neuron(int label, vector<Neuron>& neurons) {
@@ -152,6 +152,8 @@ NeuralNetwork* Phenotype::get_network(Individual* individual) {
         Neuron neuron;
             
         neuron.label_ = i;
+        
+        neuron.bias_ = individual->genes_[(individual->genes_.size()-individual->output_units_) + i];
             
         network->output_neurons_.push_back(neuron);
     }

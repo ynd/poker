@@ -23,11 +23,7 @@ vector<double> NeuralNetwork::get_output(vector<double> input) {
             closed_set.insert(input_neurons_[i].outputs_[j]);
         }
     }
-    
-    for (int i = 0; i < hidden_neurons_.size(); i++) {
-        hidden_neurons_[i].output_ = hidden_neurons_[i].bias_;
-    }
-    
+        
     for (int i = 0; i < output_neurons_.size(); i++) {
         closed_set.insert(&output_neurons_[i]);
     
@@ -57,4 +53,10 @@ vector<double> NeuralNetwork::get_output(vector<double> input) {
     }
     
     return output;
+}
+
+void NeuralNetwork::clear_memory() {
+    for (int i = 0; i < hidden_neurons_.size(); i++) {
+        hidden_neurons_[i].output_ = hidden_neurons_[i].bias_;
+    }
 }

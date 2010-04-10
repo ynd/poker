@@ -16,6 +16,8 @@ class NeuralNetwork {
 
 public:
     vector<double> get_output(vector<double> input);
+    
+    void clear_memory();
 
     // Neurons that belong to the input layer.
     vector<Neuron> input_neurons_;
